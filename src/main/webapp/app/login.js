@@ -13,7 +13,7 @@ Ext.application({
 				type: 'fit'
 			},
 			//iconCls: 'key',
-			title: "SAM - Login",
+			title: "Login",
 			closeAction: 'hide',
 			closable: false,			
 			items: [

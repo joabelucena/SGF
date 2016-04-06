@@ -3,7 +3,7 @@ Ext.define('Sam.view.ViewportMenuItem', {
 	alias : 'widget.viewportmenuitem',
 
 	border : 0,
-	autoScroll : true,
+	scrollable : 'y',
 	rootVisible : false
 
 });

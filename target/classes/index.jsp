@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>SAM</title>
+		<title>SGF</title>
 		 
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link  href="<c:url value="/resources/resources/css/styles.css" />" rel="stylesheet" >

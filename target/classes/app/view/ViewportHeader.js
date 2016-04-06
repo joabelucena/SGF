@@ -4,22 +4,19 @@ Ext.define('Sam.view.ViewportHeader', {
 	
 	height: 60,
 	ui: 'footer',
-	items: [
-		{
-			xtype: 'label'
+	items: [{
+			xtype: 'tbfill',
+			width: '33%',
+			html: "<img border='0' width='108px' height='30px' align='left' src='./resources/resources/img/logo-ttrans.png' />"
 		},{
 			xtype: 'tbfill',
-			html: "<img border='0' width='190px' height='37px' src='./resources/resources/img/logo-vlt-emtu.png' />"
-		},{
-			xtype: 'tbfill',
+			width: '34%',
 			html: '<center><span style="color:#444D50;font-size:20px;font-weight:bold;">SGF - Sistema de Gestão de Frotas</span></center>'
 		},{
-			xtype: 'tbfill',
-			html: "<img border='0' width='108px' height='30px' align='right' src='./resources/resources/img/logo-ttrans.png' />"
-		},{
-			xtype: 'tbseparator',	
+			xtype: 'tbfill'
 		},{
 			xtype: 'button',
+			width: '33%',
 			itemId: 'logout',
 			width: '55px',
 			handler: function() {

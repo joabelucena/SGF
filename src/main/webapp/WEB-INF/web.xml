@@ -26,10 +26,8 @@
 		<param-value>
 	       	/WEB-INF/spring/appServlet/security-servlet.xml
 	       	/WEB-INF/spring/appServlet/app-servlet.xml
-	       	/WEB-INF/spring/appServlet/ws-servlet.xml
 	       	/WEB-INF/spring/appServlet/wss-servlet.xml
 	       	/WEB-INF/spring/appServlet/job-servlet.xml
-	       	/WEB-INF/spring/appServlet/snmp-servlet.xml
 	    </param-value>
 	</context-param>
 
@@ -72,30 +70,6 @@
 	</servlet-mapping>
 
 	
-	<!-- Servlet: ws-servlet -->
-	<servlet>
-		<servlet-name>ws</servlet-name>
-		<servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/ws-servlet.xml</param-value>
-		</init-param>
-		<init-param>
-			<param-name>transformWsdlLocations</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<load-on-startup>2</load-on-startup>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>ws</servlet-name>
-		<url-pattern>/eventsService/*</url-pattern>
-		<url-pattern>/alarmService/*</url-pattern>
-		<url-pattern>/systemService/*</url-pattern>
-	</servlet-mapping>
-	
-	
-	
 	<servlet>
         <servlet-name>wss</servlet-name>
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSSpringServlet</servlet-class>
@@ -114,18 +88,6 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/job-servlet.xml</param-value>
-		</init-param>
-		<load-on-startup>-1</load-on-startup>
-	</servlet>
-	
-	
-	<!-- Servlet: snmp-servlet -->
-	<servlet>
-		<servlet-name>snmpServlet</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/snmp-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>-1</load-on-startup>
 	</servlet>
