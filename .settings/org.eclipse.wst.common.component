@@ -8,6 +8,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
         <property name="java-output-path" value="/SGF/build/classes"/>
-        <property name="context-root" value="SAM"/>
+        <property name="context-root" value="SGF"/>
     </wb-module>
 </project-modules>

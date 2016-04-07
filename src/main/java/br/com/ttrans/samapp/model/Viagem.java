@@ -34,6 +34,14 @@ public class Viagem {
 	@JoinColumn(name="deviceID")
 	private Device device;
 	
+	@ManyToOne
+	@JoinColumn(name="estOrig")
+	private Estacao origem;
+	
+	@ManyToOne
+	@JoinColumn(name="estDest")
+	private Estacao destino;
+	
 	@OneToMany(fetch=FetchType.EAGER, orphanRemoval=true)
 	@JoinColumn(name="viagemID", referencedColumnName = "viagemID")
 	@Cascade({CascadeType.SAVE_UPDATE})
@@ -70,6 +78,22 @@ public class Viagem {
 
 	public void setDevice(Device device) {
 		this.device = device;
+	}
+	
+	public Estacao getOrigem() {
+		return origem;
+	}
+
+	public void setOrigem(Estacao origem) {
+		this.origem = origem;
+	}
+
+	public Estacao getDestino() {
+		return destino;
+	}
+
+	public void setDestino(Estacao destino) {
+		this.destino = destino;
 	}
 
 	public Set<LogViagem> getLog() {
