@@ -1,15 +1,21 @@
 package br.com.ttrans.samapp.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name="x_viagem")
@@ -27,6 +33,11 @@ public class Viagem {
 	@ManyToOne
 	@JoinColumn(name="deviceID")
 	private Device device;
+	
+	@OneToMany(fetch=FetchType.EAGER, orphanRemoval=true)
+	@JoinColumn(name="viagemID", referencedColumnName = "viagemID")
+	@Cascade({CascadeType.SAVE_UPDATE})
+	private Set<LogViagem> log;
 	
 	@Column(name="horaPartida")
 	private Date horaPartida;
@@ -59,6 +70,14 @@ public class Viagem {
 
 	public void setDevice(Device device) {
 		this.device = device;
+	}
+
+	public Set<LogViagem> getLog() {
+		return log;
+	}
+
+	public void setLog(Set<LogViagem> log) {
+		this.log = log;
 	}
 
 	public Date getHoraPartida() {
