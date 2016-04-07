@@ -9,9 +9,7 @@ import javax.xml.ws.WebServiceContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.ttrans.samapp.service.EventService;
 import br.com.ttrans.samapp.ws.bo.alarm.AlarmAdd;
 import br.com.ttrans.samapp.ws.bo.alarm.AlarmAllCurrent;
 import br.com.ttrans.samapp.ws.bo.alarm.AlarmDelete;
@@ -26,9 +24,6 @@ public class AlarmServicesImpl implements AlarmEndpoint {
 
 	@Resource
 	private WebServiceContext wsContext;
-	
-	@Autowired
-	private EventService service;
 	
 	private Map<String, Connection> connections;
 	

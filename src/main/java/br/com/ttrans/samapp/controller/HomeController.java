@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import br.com.ttrans.samapp.library.ClassFinder;
 import br.com.ttrans.samapp.library.WebInfo;
 import br.com.ttrans.samapp.model.Menu;
+import br.com.ttrans.samapp.model.Setor;
 import br.com.ttrans.samapp.model.User;
+import br.com.ttrans.samapp.service.SetorService;
 
 /**
  * Handles requests for the application home page.
@@ -38,6 +41,9 @@ public class HomeController {
 	private static final String WSPACKAGE = "br.com.ttrans.samapp.ws.endpoint";
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	@Autowired
+	private SetorService service;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -56,38 +62,9 @@ public class HomeController {
 	@RequestMapping(value = { "/services", "/services/" }, method = RequestMethod.GET)
 	public String listServices(Locale locale, Model model, HttpServletRequest request) {
 
-//		@SuppressWarnings("all")
-//		final class WssDefinition {
-//
-//			private String name;
-//			private String description;
-//			private String url;
-//
-//			public WssDefinition(String name, String description, String url) {
-//				this.name = name;
-//				this.description = description;
-//				this.url = url;
-//			}
-//
-//			public String getName() {
-//				return name;
-//			}
-//
-//			public String getDescription() {
-//				return description;
-//			}
-//
-//			public String getUrl() {
-//				return url;
-//			}
-//
-//		}
-
 		List<Class<?>> classes = ClassFinder.find(WSPACKAGE);
 		
 		List<String[]> list = new ArrayList<String[]>();
-
-//		List<WssDefinition> list = new ArrayList<WssDefinition>();
 
 		String path = request.getRequestURL().substring(0,
 				request.getRequestURL().indexOf(request.getContextPath()) + request.getContextPath().length());
@@ -112,46 +89,9 @@ public class HomeController {
 				
 				list.add(info);
 				
-//				list.add(new String[]{"firstarg", "secondarg", "thirdarg"});
-
-//				list.add(ws.name(), ws.description(), path.concat(ws.url()));
-
 			}
 
 		}
-
-		// System.out.println("teste");
-
-		// try {
-		//
-		// Document doc = DocumentBuilderFactory.newInstance()
-		// .newDocumentBuilder()
-		// .parse(this.getClass().getResourceAsStream(WSCONTEXT));
-		//
-		// doc.getDocumentElement().normalize();
-		//
-		// NodeList nList = doc.getElementsByTagName("wss:binding");
-		//
-		// for (int temp = 0; temp < nList.getLength(); temp++) {
-		//
-		// Node nNode = nList.item(temp);
-		//
-		// if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-		//
-		// Element eElement = (Element) nNode;
-		//
-		// list.add(new WssDefinition( eElement.getAttribute("name")
-		// ,eElement.getAttribute("description")
-		// ,path.concat(eElement.getAttribute("url"))));
-		//
-		// }
-		// }
-		//
-		//
-		// } catch (Exception e) {
-		// logger.error("Error trying to open file: " + WSCONTEXT);
-		// logger.error(e.getMessage());
-		// }
 
 		model.addAttribute("lists", list);
 
@@ -197,32 +137,36 @@ public class HomeController {
 		return user.getUserID() + " | " + user.getRole().getDisplayName();
 	}
 
-	@RequestMapping(value = "/sendMail", method = RequestMethod.GET)
-	@ResponseBody
-	public String taskTest() {
-
-		for (int i = 0; i <= 20; i++) {
-			//
-			// String cMessage = "<html>Oi <b>Xuvisco!</b><br><br>Esse é o
-			// email: " + i+".</html>";
-			//
-			// client.sendMail(new String[] { "bruno.souza@inylbra.com.br" }
-			// //PARA
-			// ,new String[] {} //CC
-			// ,new String[] {} //CCO
-			// ,"TESTE Mail", //ASSUNTO
-			// cMessage); //MENSAGEM
-
-		}
-
-		return "test";
-	}
-
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> testeSam(HttpServletRequest request) {
+	public Map<String, Object> testeSam(HttpServletRequest request, Authentication authentication) {
 
 		Map<String, Object> result = new HashMap<String, Object>();
+		
+		Setor s1 = new Setor("BRT/PALMAS");
+		Setor s2 = new Setor("VLT/SANTOS");
+		
+		System.out.println("Inserindo 1");
+		service.add(s1, authentication);
+		
+
+		System.out.println("Inserindo 2");
+		service.add(s2, authentication);
+		
+		logger.info("S1 ID: " + s1.getId());
+		logger.info("S2 ID: " + s2.getId());
+		
+		s1.setDesc("BRT-PALMAS");
+		
+		
+
+		System.out.println("Editando 1");
+		service.edit(s1, authentication);
+		
+
+		System.out.println("Deletando 2");
+		service.delete(s2, authentication);
+		
 
 		return result;
 	}
