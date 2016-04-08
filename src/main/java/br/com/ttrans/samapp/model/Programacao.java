@@ -33,7 +33,7 @@ public class Programacao {
 	private Itinerario itinerario;
 	
 	@OneToMany(fetch=FetchType.EAGER, orphanRemoval=true)
-	@JoinColumn(name="programacaoID", referencedColumnName = "programacaoID")
+	@JoinColumn(name="programacaoID", referencedColumnName="programacaoID")
 	@Cascade({CascadeType.SAVE_UPDATE})
 	private Set<Partida> partidas;
 	

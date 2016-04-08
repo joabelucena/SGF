@@ -19,7 +19,7 @@ public class Partida {
 	private int id;
 	
 	@Column(name="horaPartida")
-	private Date partida;
+	private Date horaPartida;
 
 	public int getId() {
 		return id;
@@ -29,13 +29,11 @@ public class Partida {
 		this.id = id;
 	}
 
-	public Date getPartida() {
-		return partida;
+	public Date getHoraPartida() {
+		return horaPartida;
 	}
 
-	public void setPartida(Date partida) {
-		this.partida = partida;
+	public void setHoraPartida(Date horaPartida) {
+		this.horaPartida = horaPartida;
 	}
-	
-	
 }

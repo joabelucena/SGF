@@ -27,7 +27,7 @@ public class Viagem {
 	private int id;
 	
 	@ManyToOne
-	@JoinColumn(name="intinerarioID")
+	@JoinColumn(name="itinerarioID")
 	private Itinerario itinerario;
 	
 	@ManyToOne

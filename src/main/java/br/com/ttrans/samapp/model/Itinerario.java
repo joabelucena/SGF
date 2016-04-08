@@ -10,10 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="x_itinerario")
@@ -27,9 +30,10 @@ public class Itinerario {
 	@Column(name="descricao")
 	private String desc;
 	
-	@OneToMany(fetch=FetchType.EAGER, orphanRemoval=true)
-	@JoinColumn(name="trechoID", referencedColumnName = "itinerarioID")
+	@OneToMany(fetch=FetchType.EAGER, orphanRemoval=true, targetEntity=TrechoItinerario.class)
+	@JoinColumn(name="itinerarioID", referencedColumnName = "itinerarioID")
 	@Cascade({CascadeType.SAVE_UPDATE})
+	@OrderBy("seq")
 	private Set<TrechoItinerario> trechos;
 
 	public int getId() {

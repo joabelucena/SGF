@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="x_trecho_itinerario")
 public class TrechoItinerario {
@@ -24,6 +26,7 @@ public class TrechoItinerario {
 	
 	@ManyToOne
 	@JoinColumn(name="itinerarioID")
+	@JsonBackReference(value="trechos")
 	private Itinerario itinerario;
 	
 	@Column(name="sequence")

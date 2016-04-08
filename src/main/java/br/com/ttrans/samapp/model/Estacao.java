@@ -7,6 +7,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 @Entity
 @Table(name="Estacao")
 public class Estacao {
@@ -18,6 +21,7 @@ public class Estacao {
 	@Column(name="scapID")
 	private String scapID;
 	
+	@NotFound(action=NotFoundAction.IGNORE)
 	@ManyToOne
 	@JoinColumn(name="geozoneID")
 	private Geozone geozone;

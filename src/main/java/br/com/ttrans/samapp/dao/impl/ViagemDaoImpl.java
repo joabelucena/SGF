@@ -2,6 +2,7 @@ package br.com.ttrans.samapp.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -37,7 +38,9 @@ public class ViagemDaoImpl implements ViagemDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Viagem> loadData() {
-		return session.getCurrentSession().createCriteria(Viagem.class).list();
+		return session.getCurrentSession().createCriteria(Viagem.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.list();
 	}
 
 }
