@@ -137,7 +137,7 @@ public class MonitorController {
 		return result;
 	}
 	
-	@RequestMapping("/programacao/update.action")
+	@RequestMapping("/viagem/update.action")
 	@ResponseBody
 	public Map<String, Object> updateModel(@RequestBody Viagem payload, 
 			HttpServletRequest request,
@@ -157,7 +157,7 @@ public class MonitorController {
 		return result;
 	}
 	
-	@RequestMapping("/programacao/delete.action")
+	@RequestMapping("/viagem/delete.action")
 	@ResponseBody
 	public Map<String, Object> deleteModel(@RequestBody Viagem payload, 
 			HttpServletRequest request,
