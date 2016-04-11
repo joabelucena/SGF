@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ttrans.samapp.dao.UserDao;
-import br.com.ttrans.samapp.model.UserStatus;
 
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -48,7 +47,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			User securityUser = new User(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 			return securityUser;
 		}else{
-			
 			throw new UsernameNotFoundException("Users Not Found!!!");
 		}
 	}

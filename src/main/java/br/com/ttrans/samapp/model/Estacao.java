@@ -38,11 +38,13 @@ public class Estacao {
 	@Column(name="localizacaoLon")
 	private Double latitude;
 	
+	@NotFound(action=NotFoundAction.IGNORE)
 	@Column(name="xpos_px")
-	private int posX;
+	private Integer posX;
 	
+	@NotFound(action=NotFoundAction.IGNORE)
 	@Column(name="ypos_px")
-	private int posY;
+	private Integer posY;
 
 	public String getId() {
 		return id;
@@ -100,20 +102,21 @@ public class Estacao {
 		this.latitude = latitude;
 	}
 
-	public int getPosX() {
+	public Integer getPosX() {
 		return posX;
 	}
 
-	public void setPosX(int posX) {
+	public void setPosX(Integer posX) {
 		this.posX = posX;
 	}
 
-	public int getPosY() {
+	public Integer getPosY() {
 		return posY;
 	}
 
-	public void setPosY(int posY) {
+	public void setPosY(Integer posY) {
 		this.posY = posY;
 	}
+	
 	
 }

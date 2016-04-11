@@ -39,6 +39,4 @@ public class ViagemServiceImpl implements ViagemService {
 	public List<Viagem> loadData() {
 		return dao.loadData();
 	}
-
-
 }

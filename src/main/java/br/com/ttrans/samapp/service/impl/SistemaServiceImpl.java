@@ -21,22 +21,19 @@ public class SistemaServiceImpl implements SistemaService {
 	@Transactional
 	public void add(Sistema obj, Authentication authentication) {
 		dao.add(obj, authentication);
-
 	}
 
-	@Override
+	@Transactional
 	public void edit(Sistema obj, Authentication authentication) {
 		dao.edit(obj, authentication);
-
 	}
 
-	@Override
+	@Transactional
 	public void delete(Sistema obj, Authentication authentication) {
 		dao.delete(obj, authentication);
-
 	}
 
-	@Override
+	@Transactional
 	public List<Sistema> loadData() {
 		return dao.loadData();
 	}

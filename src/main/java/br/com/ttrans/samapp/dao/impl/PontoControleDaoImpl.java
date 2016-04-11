@@ -2,6 +2,7 @@ package br.com.ttrans.samapp.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -37,7 +38,9 @@ public class PontoControleDaoImpl implements PontoControleDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<PontoControle> loadData() {
-		return session.getCurrentSession().createCriteria(PontoControle.class).list();
+		return session.getCurrentSession().createCriteria(PontoControle.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.list();
 	}
 
 }
