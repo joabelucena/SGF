@@ -130,11 +130,12 @@ public class HomeController {
 
 	@RequestMapping(value = "/getuser", method = RequestMethod.POST)
 	@ResponseBody
-	public String getUser(HttpServletRequest request, Authentication aut) {
-
+	public ResponseEntity<String> getUser(HttpServletRequest request, Authentication aut) {
+		
 		User user = (User) request.getSession().getAttribute("loggedUser");
-
-		return user.getUserID() + " | " + user.getRole().getDisplayName();
+		
+		return new ResponseEntity<String>(user.getUserID() + " | " + user.getRole().getDisplayName(), HttpStatus.OK);
+		
 	}
 
 	@RequestMapping(value = "/test", method = RequestMethod.GET)

@@ -27,12 +27,12 @@ Ext.define('Sam.view.ViewportFooter', {
 	            		method : 'POST',
 	            		
 	            		success: function (result, request) {
-	            			 Ext.fly('username').setHtml(result.responseText);
+	            			 Ext.fly('username').setHtml('Usuário: ' + Ext.JSON.decode(result.responseText));
 	            		},
 	                    
 	            		failure: function (result, request) {
 	            			Ext.fly('username').setHtml('Error!');
-	                    }	
+	                    }
 	        		});
 		    		
 		    		
