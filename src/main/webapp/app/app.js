@@ -6,7 +6,8 @@
 	           ,'Sam.lib.DateTimePicker'
 	           ,'Sam.lib.DateTimeField'
 	           ,'Sam.lib.GroupField'
-	           ,'Sam.lib.AutoGrid'],
+	           ,'Sam.lib.AutoGrid'
+	           ,'Sam.lib.AutoStore'],
 	
 	launch : function()
 	{
@@ -19,5 +20,5 @@
 
 	stores: ['Menu'],
    
-	controllers: ['Menu']
+	controllers: ['Menu', 'ConfigurationController', 'MonitorController']
 });
