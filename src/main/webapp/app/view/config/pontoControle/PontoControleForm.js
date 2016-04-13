@@ -1,10 +1,10 @@
-Ext.define('Sam.view.alarm.type.TypeForm', {
+Ext.define('Sam.view.config.pontoControle.PontoControleForm', {
 	extend: 'Ext.Panel',
 	requires:['Sam.view.components.FormToolbar'],
 	
-	alias:  'widget.alarmtypeform',
+	alias:  'widget.pontoform',
 	
-	itemId: 'alarmtypeform',
+	itemId: 'pontoform',
 	
 	closable: true,
 	
@@ -35,35 +35,92 @@ Ext.define('Sam.view.alarm.type.TypeForm', {
 			fieldLabel : 'Código',
 			itemId: 'id',
 			name: 'id',
-			allowBlank : true,
-			editable: false,
-			width: '20%',
-			inputAttrTpl: " data-qtip='Código do Tipo' "
+			editable: false,	//ID field must always be editable: false. Check Utils.js
+			allowBlank: false,
+			width: 200,
+			inputAttrTpl: " data-qtip='Código do Ponto de Controle' "
 		},{
 			fieldLabel : 'Descrição',
 			itemId: 'desc',
 			name: 'desc',
 			allowBlank : false,
-			width: '60%',
-			inputAttrTpl: " data-qtip='Descrição do Tipo' "
+			width: 650,
+			inputAttrTpl: " data-qtip='Descrição do Ponto de Controle' "
 		},{
-			fieldLabel : 'Classificação',
-			itemId: 'cla',
-			name: 'cla',
-			store: Ext.create('Ext.data.Store',{fields: ['id', 'desc'],
-			    data : [
-			        {"id":"C", "desc":"Comando"},
-			        {"id":"A", "desc":"Alarme"}
-			    ]
-			}),
-			queryMode: 'local',
-			valueField: 'id',
-	        displayField: 'desc',
-			xtype : 'combobox',
+			xtype: 'numberfield',
+			fieldLabel : 'Longitude',
+			itemId: 'longitude',
+			name: 'longitude',
 			allowBlank : false,
-			editable: false,
-			width: '25%',
-			inputAttrTpl: " data-qtip='Define se o alarme será exibido na tela de Eventos.' "
+			width: 650,
+			inputAttrTpl: " data-qtip='Coordenada de Longitude' "
+		},{
+			xtype: 'numberfield',
+			fieldLabel : 'Latitude',
+			itemId: 'latitude',
+			name: 'latitude',
+			allowBlank : false,
+			width: 650,
+			inputAttrTpl: " data-qtip='Coordenada de Latitude' "
+		},{
+
+			xtype : 'groupfield',
+			defaultType : 'textfield',
+			title : 'Linha',
+			itemId: 'linhaInfo',
+			width: '60%',
+			
+			items:[{
+				xtype: 'textfield',
+				fieldLabel : 'Código',
+				itemId: 'linhaID',
+				name: 'linhaID',
+				editable: false,
+				width: '30%',
+				allowBlank : false,
+				inputAttrTpl: " data-qtip='Código da Linha' ",
+				triggers: {f3: {handler: function() {
+					
+					Ext.create('Sam.view.components.PopUp',{
+						title: 'Selecionar Linha',
+						buttons : [ {
+							text : 'Confirma',
+							itemId: 'submit',
+							cls:'x-btn-default-small',
+							iconCls: 'tick-button',
+							handler: function(button) {
+				        	
+					        	//Aba Objecto Pai
+				        		var activeTab = Ext.getCmp('viewportpanel').getActiveTab(),
+				        			window = button.up('window'),
+				        			record = button.up('window').down('grid').getSelection()[0],
+				        			form = Ext.ComponentQuery.query('form',activeTab)[0].getForm(),
+				        			groupField = Ext.ComponentQuery.query('#linhaInfo',activeTab)[0];
+				        		
+					        	if(record){
+					        		
+					        		groupField.loadRecord(record);
+					        		
+					        		window.close();
+					        		
+					        	}
+							}
+				        
+						} ],
+					
+					items:	[Ext.create('Sam.view.config.linha.LinhaGrid',{dockedItems:[]})],
+					
+				}).show()}}}
+			
+				}, {
+					fieldLabel : 'Descrição',
+					itemId: 'linhaDesc',
+					name: 'linhaDesc',
+					readOnly : true,
+					width: '50%',
+					inputAttrTpl: " data-qtip='Descrição da Linha' ",
+				}]
+			
 		}],
 		
 		scrollable: true,

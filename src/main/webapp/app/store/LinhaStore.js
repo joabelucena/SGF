@@ -3,6 +3,8 @@ Ext.define('Sam.store.LinhaStore', {
 	
 	model: 'Sam.model.Linha',
 	
+	storeId: 'LinhaStore',
+	
 	autoLoad: true,
 
 	sorters: { property: 'id'},

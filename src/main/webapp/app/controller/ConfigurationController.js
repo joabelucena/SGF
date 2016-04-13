@@ -1,147 +1,236 @@
 Ext.define('Sam.controller.ConfigurationController', {
+	
 	extend: 'Ext.app.Controller',
 	
-	views: ['config.sistema.SistemaGrid'
+	xUtils: Ext.create('Sam.lib.Util'),
+	
+	views: [
+	         'config.sistema.SistemaGrid'
+	        ,'config.sistema.SistemaForm'
+	        
 	        ,'config.garagem.GaragemGrid'
+	        ,'config.garagem.GaragemForm'
+	        
 	        ,'config.pontoControle.PontoControleGrid'
+	        ,'config.pontoControle.PontoControleForm'
+	        
 	        ,'config.linha.LinhaGrid'
+//	        ,'config.linha.LinhaForm'
+	        
 	        ,'config.setor.SetorGrid'
-	        ,'config.estacao.EstacaoGrid'
+	        ,'config.setor.SetorForm'
+	        
+	        ,'config.estacao.EstacaoGrid'	        
+	        ,'config.estacao.EstacaoForm'
+	        
 	        ,'config.device.DeviceGrid'
-	        ,'config.trecho.TrechoGrid'],
+	        ,'config.device.DeviceForm'
+	        
+	        ,'config.trecho.TrechoGrid'
+	        ,'config.trecho.TrechoForm'
+	        ],
    
 	init: function() {
 		
 		this.control({
-			/* 
-			 * Buttons Listeners: Alarm
+			
+			/** 
+			 * Buttons Listeners: Sistema
 			 */
-			'#alarmform_alarm #submit' :{
-				click: this.AlarmFormAlarmSubmit,
-			},
-			
-			'#alarmform_model #submit' :{
-				click: this.AlarmFormModelSubmit,
-			},
-			
-			'#alarmform_type #submit' :{
-				click: this.AlarmFormTypeSubmit,
-			},
-			
-			'#alarmform_group #submit' :{
-				click: this.AlarmFormGroupSubmit,
-			},
-			
-			'#alarmform_severity #submit' :{
-				click: this.AlarmFormSeveritySubmit,
-			},
-			
-			'#alarmform toolbar #btnSubmit' :{
-				create: this.onAlarmBtnSubmitAdd,
+			'#sistemaform toolbar #btnSubmit' :{
+				create: this.onSistemaBtnSubmitAdd,
 				read:   function(){Ext.getCmp('viewportpanel').getActiveTab().close()},
-				update: this.onAlarmBtnSubmitEdit,
-				remove: this.onAlarmBtnSubmitDelete,
+				update: this.onSistemaBtnSubmitEdit,
+				remove: this.onSistemaBtnSubmitDelete,
 				
 			},
-			
-			'#alarmgrid toolbar #btnShow' :{
-				click: this.onAlarmBtnShowClick
+
+			'#sistemagrid toolbar #btnShow' :{
+				click: this.onSistemaBtnShowClick
+			},
+
+			'#sistemagrid toolbar #btnEdit' :{
+				click: this.onSistemaBtnEditClick
+			},
+
+			'#sistemagrid toolbar #btnAdd' :{
+				click: this.onSistemaBtnAddClick
+			},
+
+			'#sistemagrid toolbar #btnDelete' :{
+				click: this.onSistemaBtnDeleteClick
 			},
 			
-			'#alarmgrid toolbar #btnEdit' :{
-				click: this.onAlarmBtnEditClick
+			/** 
+			 * Buttons Listeners: Garagem
+			 */
+			'#garagemform toolbar #btnSubmit' :{
+				create: this.onGaragemBtnSubmitAdd,
+				read:   function(){Ext.getCmp('viewportpanel').getActiveTab().close()},
+				update: this.onGaragemBtnSubmitEdit,
+				remove: this.onGaragemBtnSubmitDelete,
+				
+			},
+
+			'#garagemgrid toolbar #btnShow' :{
+				click: this.onGaragemBtnShowClick
+			},
+
+			'#garagemgrid toolbar #btnEdit' :{
+				click: this.onGaragemBtnEditClick
+			},
+
+			'#garagemgrid toolbar #btnAdd' :{
+				click: this.onGaragemBtnAddClick
+			},
+
+			'#garagemgrid toolbar #btnDelete' :{
+				click: this.onGaragemBtnDeleteClick
 			},
 			
-			'#alarmgrid toolbar #btnAdd' :{
-				click: this.onAlarmBtnAddClick
+			/** 
+			 * Buttons Listeners: PontoControle
+			 */
+			'#pontoform toolbar #btnSubmit' :{
+				create: this.onPontoControleBtnSubmitAdd,
+				read:   function(){Ext.getCmp('viewportpanel').getActiveTab().close()},
+				update: this.onPontoControleBtnSubmitEdit,
+				remove: this.onPontoControleBtnSubmitDelete,
+				
+			},
+
+			'#pontogrid toolbar #btnShow' :{
+				click: this.onPontoControleBtnShowClick
+			},
+
+			'#pontogrid toolbar #btnEdit' :{
+				click: this.onPontoControleBtnEditClick
+			},
+
+			'#pontogrid toolbar #btnAdd' :{
+				click: this.onPontoControleBtnAddClick
+			},
+
+			'#pontogrid toolbar #btnDelete' :{
+				click: this.onPontoControleBtnDeleteClick
 			},
 			
-			'#alarmgrid toolbar #btnDelete' :{
-				click: this.onAlarmBtnDeleteClick
-			}
+			/** 
+			 * Buttons Listeners: Setor
+			 */
+			'#setorform toolbar #btnSubmit' :{
+				create: this.onSetorBtnSubmitAdd,
+				read:   function(){Ext.getCmp('viewportpanel').getActiveTab().close()},
+				update: this.onSetorBtnSubmitEdit,
+				remove: this.onSetorBtnSubmitDelete,
+				
+			},
+
+			'#setorgrid toolbar #btnShow' :{
+				click: this.onSetorBtnShowClick
+			},
+
+			'#setorgrid toolbar #btnEdit' :{
+				click: this.onSetorBtnEditClick
+			},
+
+			'#setorgrid toolbar #btnAdd' :{
+				click: this.onSetorBtnAddClick
+			},
+
+			'#setorgrid toolbar #btnDelete' :{
+				click: this.onSetorBtnDeleteClick
+			},
+			
+			/** 
+			 * Buttons Listeners: Estacao
+			 */
+			'#estacaoform toolbar #btnSubmit' :{
+				create: this.onEstacaoBtnSubmitAdd,
+				read:   function(){Ext.getCmp('viewportpanel').getActiveTab().close()},
+				update: this.onEstacaoBtnSubmitEdit,
+				remove: this.onEstacaoBtnSubmitDelete,
+				
+			},
+
+			'#estacaogrid toolbar #btnShow' :{
+				click: this.onEstacaoBtnShowClick
+			},
+
+			'#estacaogrid toolbar #btnEdit' :{
+				click: this.onEstacaoBtnEditClick
+			},
+
+			'#estacaogrid toolbar #btnAdd' :{
+				click: this.onEstacaoBtnAddClick
+			},
+
+			'#estacaogrid toolbar #btnDelete' :{
+				click: this.onEstacaoBtnDeleteClick
+			},
+			
+			/** 
+			 * Buttons Listeners: Device
+			 */
+			'#deviceform toolbar #btnSubmit' :{
+				create: this.onDeviceBtnSubmitAdd,
+				read:   function(){Ext.getCmp('viewportpanel').getActiveTab().close()},
+				update: this.onDeviceBtnSubmitEdit,
+				remove: this.onDeviceBtnSubmitDelete,
+				
+			},
+
+			'#devicegrid toolbar #btnShow' :{
+				click: this.onDeviceBtnShowClick
+			},
+
+			'#devicegrid toolbar #btnEdit' :{
+				click: this.onDeviceBtnEditClick
+			},
+
+			'#devicegrid toolbar #btnAdd' :{
+				click: this.onDeviceBtnAddClick
+			},
+
+			'#devicegrid toolbar #btnDelete' :{
+				click: this.onDeviceBtnDeleteClick
+			},
+			
+			/** 
+			 * Buttons Listeners: Trecho
+			 */
+			'#trechoform toolbar #btnSubmit' :{
+				create: this.onTrechoBtnSubmitAdd,
+				read:   function(){Ext.getCmp('viewportpanel').getActiveTab().close()},
+				update: this.onTrechoBtnSubmitEdit,
+				remove: this.onTrechoBtnSubmitDelete,
+				
+			},
+
+			'#trechogrid toolbar #btnShow' :{
+				click: this.onTrechoBtnShowClick
+			},
+
+			'#trechogrid toolbar #btnEdit' :{
+				click: this.onTrechoBtnEditClick
+			},
+
+			'#trechogrid toolbar #btnAdd' :{
+				click: this.onTrechoBtnAddClick
+			},
+
+			'#trechogrid toolbar #btnDelete' :{
+				click: this.onTrechoBtnDeleteClick
+			},
+			
+			
 			
 		});
 	},
-	/*********** Begin Alarm Controlling ***********/
-	AlarmFormAlarmSubmit: function(){
-		
-		var row = this.getLookup().down('grid').getSelection()[0];
-		
-		var activeTab = Ext.getCmp('viewportpanel').getActiveTab();
-		
-		if(row){
-			
-			Ext.ComponentQuery.query('#alarm_id',activeTab)[0].setValue(row.get('id'));
-			Ext.ComponentQuery.query('#alarm_desc',activeTab)[0].setValue(row.get('desc'));
-			
-			this.getLookup().close();
-		}
-	},
-
-	AlarmFormModelSubmit: function(){
-		
-	var row = this.getLookup().down('grid').getSelection()[0];
-		
-		var activeTab = Ext.getCmp('viewportpanel').getActiveTab();
-		
-		if(row){
-			
-			Ext.ComponentQuery.query('#model_id',activeTab)[0].setValue(row.get('id'));
-			Ext.ComponentQuery.query('#model_desc',activeTab)[0].setValue(row.get('desc'));
-			
-			this.getLookup().close();
-		}
-		
-	},
 	
-	AlarmFormGroupSubmit: function(){
-		
-		var row = this.getLookup().down('grid').getSelection()[0];
-			
-			var activeTab = Ext.getCmp('viewportpanel').getActiveTab();
-			
-			if(row){
-				
-				Ext.ComponentQuery.query('#group_id',activeTab)[0].setValue(row.get('id'));
-				Ext.ComponentQuery.query('#group_desc',activeTab)[0].setValue(row.get('desc'));
-				
-				this.getLookup().close();
-			}
-			
-		},
-			
-		
-	AlarmFormTypeSubmit: function(){
-	var row = this.getLookup().down('grid').getSelection()[0];
-		
-		var activeTab = Ext.getCmp('viewportpanel').getActiveTab();
-		
-		if(row){
-			
-			Ext.ComponentQuery.query('#type_id',activeTab)[0].setValue(row.get('id'));
-			Ext.ComponentQuery.query('#type_desc',activeTab)[0].setValue(row.get('desc'));
-			
-			this.getLookup().close();
-		}
-	},
-
-	AlarmFormSeveritySubmit: function(){
+	/*********** Begin Sistema Controlling ***********/
 	
-		var row = this.getLookup().down('grid').getSelection()[0];
-		
-		var activeTab = Ext.getCmp('viewportpanel').getActiveTab();
-		
-		if(row){
-			
-			Ext.ComponentQuery.query('#severity_id',activeTab)[0].setValue(row.get('id'));
-			Ext.ComponentQuery.query('#severity_desc',activeTab)[0].setValue(row.get('desc'));
-			
-			this.getLookup().close();
-		}
-		
-	},
-	
-	onAlarmBtnShowClick: function() {
+	onSistemaBtnShowClick: function(me, e) {
 		
 		//Linha selecionada
 		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
@@ -150,7 +239,7 @@ Ext.define('Sam.controller.ConfigurationController', {
 		if(row){
 			
 			//Cria Aba: 1 - Visualizar
-			activeTab = this.activateTab(1, row.get('id'), 'alarmform', null, true);
+			activeTab = this.xUtils.activateTab(1, row.get('id'), 'sistemaform', null, false);
 			
 			if(activeTab){
 			
@@ -167,13 +256,13 @@ Ext.define('Sam.controller.ConfigurationController', {
 				Ext.each(fields,function(f){f.setReadOnly(true)})
 				
 				//Seta Botão Confirma: 1 - Visualizar
-				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function() {this.fireEvent('read')});
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('read')});
 				
-			}
+			}			
 		}
 	},
 	
-	onAlarmBtnEditClick: function(){
+	onSistemaBtnEditClick: function(me, e){
 		
 		//Linha selecionada
 		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
@@ -182,7 +271,7 @@ Ext.define('Sam.controller.ConfigurationController', {
 		if(row){
 			
 			//Cria Aba: 3 - Alterar
-			activeTab = this.activateTab(3, row.get('id'), 'alarmform', null, true);
+			activeTab = this.xUtils.activateTab(3, row.get('id'), 'sistemaform', null, false);
 			
 			if(activeTab){
 				
@@ -193,30 +282,25 @@ Ext.define('Sam.controller.ConfigurationController', {
 				form.loadRecord(row);
 				
 				//Seta Botão Confirma: Alterar
-				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function() {this.fireEvent('update')});
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('update', me, e)});
 			}
 		}
 	},
 	
-	onAlarmBtnAddClick: function(){
-
-			
+	onSistemaBtnAddClick: function(me, e){
+		
 		//Cria Aba: 2 - Incluir
-		var activeTab = this.activateTab(2, null, 'alarmform', null, false);
+		var activeTab = this.xUtils.activateTab(2, null, 'sistemaform', null, false);
 		
 		if(activeTab){
 	
 			//Seta Botão Confirma: Incluir
-			Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function() {this.fireEvent('create')});
-			
-			//Habilita edição do ID
-			Ext.ComponentQuery.query('#id' , activeTab)[0].setEditable(true);
+			Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e){this.fireEvent('create', me, e)});
 		}
-
 
 	},
 	
-	onAlarmBtnDeleteClick: function(){
+	onSistemaBtnDeleteClick: function(me, e){
 		//Linha selecionada
 		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
 		
@@ -224,7 +308,7 @@ Ext.define('Sam.controller.ConfigurationController', {
 		if(row){
 			
 			//Cria Aba: 4 - Excluir
-			activeTab = this.activateTab(4, row.get('id'), 'alarmform', null, true);
+			activeTab = this.xUtils.activateTab(4, row.get('id'), 'sistemaform', null, false);
 			
 			if(activeTab){
 			
@@ -241,201 +325,1105 @@ Ext.define('Sam.controller.ConfigurationController', {
 				Ext.each(fields,function(f){f.setReadOnly(true)})
 				
 				//Seta Botão Confirma: Exlcuir
-				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function() {this.fireEvent('remove')});
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('remove', me, e)});
 			}
 		}
 	},
 	
-	onAlarmBtnSubmitAdd: function(){
+	onSistemaBtnSubmitAdd: function(me, e){
 		
-		var mainPanel	= Ext.getCmp('viewportpanel'),								//Aba Objecto Pai
-			activeTab	= mainPanel.getActiveTab(),									//Aba ativa
-			form		= Ext.ComponentQuery.query('form',activeTab)[0].getForm(),	//Formulario	
-			values		= form.getValues(),											//Dados do Formulario
-			store		= this.getAlarmStore(),										//Store
-			record		= Ext.create('Sam.model.Alarm');							//Registro
-		
-		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('SistemaStore'),		//Store
+			record		= Ext.create('Sam.model.Sistema');	//Registro
 		
 		if(form.isValid()){
 			
 			//Carrega dados do Formulario no registro
 			record.set(values);
 			
-			//Carrega Objetos
-			record.set(
-					{	group:		Ext.create('Sam.model.AlarmGroup'		,{id: values.group_id	, desc: values.group_desc	}),
-						type:		Ext.create('Sam.model.AlarmType'		,{id: values.type_id	, desc: values.type_desc	}),
-						model: 		Ext.create('Sam.model.EquipmentModel'	,{id: values.model_id	, desc: values.model_desc	}),
-						severity:	Ext.create('Sam.model.SeverityLevel'	,{id: values.severity_id, desc: values.severity_desc}),
-			});
-			
-			if(typeof values.alarm_id != 'undefined' && values.alarm_id !== ""){
-				record.set(
-					{	normAlarm:	Ext.create('Sam.model.Alarm'			,{id: values.alarm_id	, desc: values.alarm_desc	})
-				});
-			}
-			
 			//Adiciona registro na store
 			store.add(record);
 			
 			//Sincroniza e Atualiza Store
-			this.syncStore(store, '#alarmgrid');
+			this.xUtils.syncStore(store, '#sistemagrid');
 			
 			//Fecha Aba
-			activeTab.close();
+			this.xUtils.closeActiveTab();
 		}
 	},
 	
-	onAlarmBtnSubmitEdit: function(){
+	onSistemaBtnSubmitEdit: function(me, e){
 		
-		var mainPanel	= Ext.getCmp('viewportpanel'),								//Aba Objecto Pai
-			activeTab	= mainPanel.getActiveTab(),									//Aba ativa
-			form		= Ext.ComponentQuery.query('form',activeTab)[0].getForm(),	//Formulario	
-			values		= form.getValues(),											//Dados do Formulario
-			store		= this.getAlarmStore(),										//Store
-			record		= form.getRecord();											//Registro
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('SistemaStore'),		//Store
+			record		= form.getRecord();					//Registro
 		
 		if(form.isValid()){
 			//Carrega dados do formulario na Store
 			store.findRecord('id',record.get('id')).set(values);
 			
-			//Carrega Objetos
-			store.findRecord('id',record.get('id')).set(
-					{	group:		Ext.create('Sam.model.AlarmGroup'		,{id: values.group_id	, desc: values.group_desc	}),
-						type:		Ext.create('Sam.model.AlarmType'		,{id: values.type_id	, desc: values.type_desc	}),
-						model: 		Ext.create('Sam.model.EquipmentModel'	,{id: values.model_id	, desc: values.model_desc	}),
-						severity:	Ext.create('Sam.model.SeverityLevel'	,{id: values.severity_id, desc: values.severity_desc}),
-			});
-			
-			if(typeof values.alarm_id != 'undefined' && values.alarm_id !== ""){
-				store.findRecord('id',record.get('id')).set(
-					{	normAlarm:	Ext.create('Sam.model.Alarm'			,{id: values.alarm_id	, desc: values.alarm_desc	})
-				});
-			}
-			
 			//Sincroniza e Atualiza Store
-			this.syncStore(store, '#alarmgrid');
+			this.xUtils.syncStore(store, '#sistemagrid');
 			
 			//Fecha Aba
-			activeTab.close();
+			this.xUtils.closeActiveTab();
 		}
 	},
 	
-	onAlarmBtnSubmitDelete: function(){
+	onSistemaBtnSubmitDelete: function(me, e){
 		
-		var mainPanel	= Ext.getCmp('viewportpanel'),								//Aba Objecto Pai
-			activeTab	= mainPanel.getActiveTab(),									//Aba ativa
-			form		= Ext.ComponentQuery.query('form',activeTab)[0].getForm(),	//Formulario	
-			values		= form.getValues(),											//Dados do Formulario
-			store		= this.getAlarmStore(),						//Store
-			record		= form.getRecord();											//Registro
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('SistemaStore'),		//Store
+			record		= form.getRecord();					//Registro
 		
 		if(form.isValid()){
-			
+		
 			//Apaga registro da Store
 			store.remove(record);
 			
 			//Sincroniza e Atualiza Store
-			this.syncStore(store, '#alarmgrid');
+			this.xUtils.syncStore(store, '#sistemagrid');
 			
 			//Fecha Aba
-			activeTab.close();
+			this.xUtils.closeActiveTab();
 		}
 	},
 	
-	/*********** End Of Alarm Controlling ***********/
+	/*********** End Sistema Controlling ***********/
 	
+	/*********** Begin Garagem Controlling ***********/
 	
-	/*********** Common Methods***********/
-	syncStore: function(store, comp){
+	onGaragemBtnShowClick: function(me, e) {
 		
-		//Sincroniza Store
-		store.sync({
-			success: function(){
-				
-				//Recarrega Store
-				store.reload();
-				
-				//Atualiza stores e views
-				Ext.each(Ext.ComponentQuery.query(comp),function(f){
-					f.getStore().reload();
-				});
-			},
-			failure: function(){
-				console.log('failure');
-			},
-			scope: this
-		});
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
 		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 1 - Visualizar
+			activeTab = this.xUtils.activateTab(1, row.get('id'), 'garagemform', null);
+			
+			if(activeTab){
+			
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Campos a desabilitar
+				var fields = Ext.ComponentQuery.query('form field',activeTab)
+				
+				//Desabilita Campos
+				Ext.each(fields,function(f){f.setReadOnly(true)})
+				
+				//Seta Botão Confirma: 1 - Visualizar
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('read')});
+				
+			}			
+		}
 	},
 	
-	activateTab: function(action, id, xtype, uTitle, lockId){
+	onGaragemBtnEditClick: function(me, e){
 		
-		//Variaveis
-		var title, tabId, activeTab;
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
 		
-		//Aba Objecto Pai
-		var mainPanel = Ext.getCmp('viewportpanel');
-		
-		switch(action){
+		//Tem Registro Selecionado
+		if(row){
 			
-			//Visualizar
-			case 1:
-				title = 'Visualizar Cod: ' + id;
-				tabId = 'show-' + xtype + '-' + id;
-				break;
+			//Cria Aba: 3 - Alterar
+			activeTab = this.xUtils.activateTab(3, row.get('id'), 'garagemform', null);
 			
-			//Incluir
-			case 2:
-				title = 'Incluir Novo Registro';
-				tabId = 'add-' + xtype
-				break;
-			
-			//Alterar
-			case 3:
-				title = 'Alterar Cod: ' + id;
-				tabId = 'edit-' + xtype + '-' + id;
-				break;
-			
-			//Excluir
-			case 4:
-				title = 'Excluir Cod: ' + id;
-				tabId = 'delete-' + xtype + '-' + id;
-				break;
-			default:
-				title = uTitle;
-		
+			if(activeTab){
+				
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Seta Botão Confirma: Alterar
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('update', me, e)});
+			}
 		}
+	},
+	
+	onGaragemBtnAddClick: function(me, e){
 		
-		var newTab = mainPanel.items.findBy(
-				function(tab){
-					return tab.id === tabId;
-				});
+		//Cria Aba: 2 - Incluir
+		var activeTab = this.xUtils.activateTab(2, null, 'garagemform', null);
 		
-		if (!newTab) {
-			newTab = mainPanel.add({
-				id: tabId,
-				xtype: xtype,
-				closable: true,
-				iconCls: 'magnifier-zoom',
-				title: title
+		if(activeTab){
+	
+			//Seta Botão Confirma: Incluir
+			Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e){this.fireEvent('create', me, e)});
+		}
+
+	},
+	
+	onGaragemBtnDeleteClick: function(me, e){
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 4 - Excluir
+			activeTab = this.xUtils.activateTab(4, row.get('id'), 'garagemform', null);
+			
+			if(activeTab){
+			
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Campos a desabilitar
+				var fields = Ext.ComponentQuery.query('form field',activeTab)
+				
+				//Desabilita Campos
+				Ext.each(fields,function(f){f.setReadOnly(true)})
+				
+				//Seta Botão Confirma: Exlcuir
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('remove', me, e)});
+			}
+		}
+	},
+	
+	onGaragemBtnSubmitAdd: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('GaragemStore'),		//Store
+			record		= Ext.create('Sam.model.Garagem');	//Registro
+		
+		if(form.isValid()){
+			
+			//Carrega dados do Formulario no registro
+			record.set(values);
+			
+			record.set({
+				sistema			: Ext.create('Sam.model.Sistema'	,{id: values.sistemaID})
 			});
+			
+			//Adiciona registro na store
+			store.add(record);
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#garagemgrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
 		}
+	},
+	
+	onGaragemBtnSubmitEdit: function(me, e){
 		
-		//Seta Aba como ativa
-		mainPanel.setActiveTab(newTab);
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('GaragemStore'),		//Store
+			record		= form.getRecord();					//Registro
 		
-		//Se for inclusao desabilita o campo Id
-		if(action == 2 && lockId){
-			Ext.ComponentQuery.query('#id' , newTab)[0].setVisible(false);
+		if(form.isValid()){
+			//Carrega dados do formulario na Store
+			store.findRecord('id',record.get('id')).set(values);
+			
+			store.findRecord('id',record.get('id')).set({
+				sistema			: Ext.create('Sam.model.Sistema'	,{id: values.sistemaID})
+			});
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#garagemgrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
 		}
+	},
+	
+	onGaragemBtnSubmitDelete: function(me, e){
 		
-		//Variavel para retornar aba ativa
-		activeTab = mainPanel.getActiveTab();
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('GaragemStore'),		//Store
+			record		= form.getRecord();					//Registro
 		
-		return activeTab;
+		if(form.isValid()){
 		
-	}
+			//Apaga registro da Store
+			store.remove(record);
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#garagemgrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	/*********** End Garagem Controlling ***********/
+	
+	/*********** Begin PontoControle Controlling ***********/
+	
+	onPontoControleBtnShowClick: function(me, e) {
+		
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 1 - Visualizar
+			activeTab = this.xUtils.activateTab(1, row.get('id'), 'pontoform', null);
+			
+			if(activeTab){
+			
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Campos a desabilitar
+				var fields = Ext.ComponentQuery.query('form field',activeTab)
+				
+				//Desabilita Campos
+				Ext.each(fields,function(f){f.setReadOnly(true)})
+				
+				//Seta Botão Confirma: 1 - Visualizar
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('read')});
+				
+			}			
+		}
+	},
+	
+	onPontoControleBtnEditClick: function(me, e){
+		
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 3 - Alterar
+			activeTab = this.xUtils.activateTab(3, row.get('id'), 'pontoform', null);
+			
+			if(activeTab){
+				
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Seta Botão Confirma: Alterar
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('update', me, e)});
+			}
+		}
+	},
+	
+	onPontoControleBtnAddClick: function(me, e){
+		
+		//Cria Aba: 2 - Incluir
+		var activeTab = this.xUtils.activateTab(2, null, 'pontoform', null);
+		
+		if(activeTab){
+	
+			//Seta Botão Confirma: Incluir
+			Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e){this.fireEvent('create', me, e)});
+		}
+
+	},
+	
+	onPontoControleBtnDeleteClick: function(me, e){
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 4 - Excluir
+			activeTab = this.xUtils.activateTab(4, row.get('id'), 'pontoform', null);
+			
+			if(activeTab){
+			
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Campos a desabilitar
+				var fields = Ext.ComponentQuery.query('form field',activeTab)
+				
+				//Desabilita Campos
+				Ext.each(fields,function(f){f.setReadOnly(true)})
+				
+				//Seta Botão Confirma: Exlcuir
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('remove', me, e)});
+			}
+		}
+	},
+	
+	onPontoControleBtnSubmitAdd: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('PontoControleStore'),		//Store
+			record		= Ext.create('Sam.model.PontoControle');	//Registro
+		
+		if(form.isValid()){
+			
+			//Carrega dados do Formulario no registro
+			record.set(values);
+			
+			record.set({
+				linha			: Ext.create('Sam.model.Linha'	,{id: values.linhaID})
+			});
+			
+			//Adiciona registro na store
+			store.add(record);
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#pontogrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	onPontoControleBtnSubmitEdit: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('PontoControleStore'),		//Store
+			record		= form.getRecord();					//Registro
+		
+		if(form.isValid()){
+			//Carrega dados do formulario na Store
+			store.findRecord('id',record.get('id')).set(values);
+			
+			store.findRecord('id',record.get('id')).set({
+				linha			: Ext.create('Sam.model.Linha'	,{id: values.linhaID})
+			});
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#pontogrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	onPontoControleBtnSubmitDelete: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('PontoControleStore'),		//Store
+			record		= form.getRecord();					//Registro
+		
+		if(form.isValid()){
+		
+			//Apaga registro da Store
+			store.remove(record);
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#pontogrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	/*********** End PontoControle Controlling ***********/
+	
+	/*********** Begin Setor Controlling ***********/
+	
+	onSetorBtnShowClick: function(me, e) {
+		
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 1 - Visualizar
+			activeTab = this.xUtils.activateTab(1, row.get('id'), 'setorform', null, false);
+			
+			if(activeTab){
+			
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Campos a desabilitar
+				var fields = Ext.ComponentQuery.query('form field',activeTab)
+				
+				//Desabilita Campos
+				Ext.each(fields,function(f){f.setReadOnly(true)})
+				
+				//Seta Botão Confirma: 1 - Visualizar
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('read')});
+				
+			}			
+		}
+	},
+	
+	onSetorBtnEditClick: function(me, e){
+		
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 3 - Alterar
+			activeTab = this.xUtils.activateTab(3, row.get('id'), 'setorform', null, true);
+			
+			if(activeTab){
+				
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Seta Botão Confirma: Alterar
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('update', me, e)});
+			}
+		}
+	},
+	
+	onSetorBtnAddClick: function(me, e){
+		
+		//Cria Aba: 2 - Incluir
+		var activeTab = this.xUtils.activateTab(2, null, 'setorform', null, true);
+		
+		if(activeTab){
+	
+			//Seta Botão Confirma: Incluir
+			Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e){this.fireEvent('create', me, e)});
+		}
+
+	},
+	
+	onSetorBtnDeleteClick: function(me, e){
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 4 - Excluir
+			activeTab = this.xUtils.activateTab(4, row.get('id'), 'setorform', null, true);
+			
+			if(activeTab){
+			
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Campos a desabilitar
+				var fields = Ext.ComponentQuery.query('form field',activeTab)
+				
+				//Desabilita Campos
+				Ext.each(fields,function(f){f.setReadOnly(true)})
+				
+				//Seta Botão Confirma: Exlcuir
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('remove', me, e)});
+			}
+		}
+	},
+	
+	onSetorBtnSubmitAdd: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('SetorStore'),		//Store
+			record		= Ext.create('Sam.model.Setor');	//Registro
+		
+		if(form.isValid()){
+			
+			//Carrega dados do Formulario no registro
+			record.set(values);
+			
+			//Adiciona registro na store
+			store.add(record);
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#setorgrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	onSetorBtnSubmitEdit: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('SetorStore'),		//Store
+			record		= form.getRecord();					//Registro
+		
+		if(form.isValid()){
+			//Carrega dados do formulario na Store
+			store.findRecord('id',record.get('id')).set(values);
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#setorgrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	onSetorBtnSubmitDelete: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('SetorStore'),		//Store
+			record		= form.getRecord();					//Registro
+		
+		if(form.isValid()){
+		
+			//Apaga registro da Store
+			store.remove(record);
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#setorgrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	/*********** End Setor Controlling ***********/
+	
+	/*********** Begin Estacao Controlling ***********/
+	
+	onEstacaoBtnShowClick: function(me, e) {
+		
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 1 - Visualizar
+			activeTab = this.xUtils.activateTab(1, row.get('id'), 'estacaoform', null, false);
+			
+			if(activeTab){
+			
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Campos a desabilitar
+				var fields = Ext.ComponentQuery.query('form field',activeTab)
+				
+				//Desabilita Campos
+				Ext.each(fields,function(f){f.setReadOnly(true)})
+				
+				//Seta Botão Confirma: 1 - Visualizar
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('read')});
+				
+			}			
+		}
+	},
+	
+	onEstacaoBtnEditClick: function(me, e){
+		
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 3 - Alterar
+			activeTab = this.xUtils.activateTab(3, row.get('id'), 'estacaoform', null, false);
+			
+			if(activeTab){
+				
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Seta Botão Confirma: Alterar
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('update', me, e)});
+			}
+		}
+	},
+	
+	onEstacaoBtnAddClick: function(me, e){
+		
+		//Cria Aba: 2 - Incluir
+		var activeTab = this.xUtils.activateTab(2, null, 'estacaoform', null, false);
+		
+		if(activeTab){
+	
+			//Seta Botão Confirma: Incluir
+			Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e){this.fireEvent('create', me, e)});
+		}
+
+	},
+	
+	onEstacaoBtnDeleteClick: function(me, e){
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 4 - Excluir
+			activeTab = this.xUtils.activateTab(4, row.get('id'), 'estacaoform', null, false);
+			
+			if(activeTab){
+			
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Campos a desabilitar
+				var fields = Ext.ComponentQuery.query('form field',activeTab)
+				
+				//Desabilita Campos
+				Ext.each(fields,function(f){f.setReadOnly(true)})
+				
+				//Seta Botão Confirma: Exlcuir
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('remove', me, e)});
+			}
+		}
+	},
+	
+	onEstacaoBtnSubmitAdd: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('EstacaoStore'),		//Store
+			record		= Ext.create('Sam.model.Estacao');	//Registro
+		
+		if(form.isValid()){
+			
+			//Carrega dados do Formulario no registro
+			record.set(values);
+			
+			record.set({
+				geozone			: Ext.create('Ext.data.Model'	,{id: values.geozoneID})
+			});
+			
+			//Adiciona registro na store
+			store.add(record);
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#estacaogrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	onEstacaoBtnSubmitEdit: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('EstacaoStore'),		//Store
+			record		= form.getRecord();					//Registro
+		
+		if(form.isValid()){
+			//Carrega dados do formulario na Store
+			store.findRecord('id',record.get('id')).set(values);
+			
+			store.findRecord('id',record.get('id')).set({
+				geozone			: Ext.create('Ext.data.Model'	,{id: values.geozoneID})
+			});
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#estacaogrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	onEstacaoBtnSubmitDelete: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('EstacaoStore'),		//Store
+			record		= form.getRecord();					//Registro
+		
+		if(form.isValid()){
+		
+			//Apaga registro da Store
+			store.remove(record);
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#estacaogrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	/*********** End Estacao Controlling ***********/
+	
+	/*********** Begin Device Controlling ***********/
+	
+	onDeviceBtnShowClick: function(me, e) {
+		
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 1 - Visualizar
+			activeTab = this.xUtils.activateTab(1, row.get('id'), 'deviceform', null, false);
+			
+			if(activeTab){
+			
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Campos a desabilitar
+				var fields = Ext.ComponentQuery.query('form field',activeTab)
+				
+				//Desabilita Campos
+				Ext.each(fields,function(f){f.setReadOnly(true)})
+				
+				//Seta Botão Confirma: 1 - Visualizar
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('read')});
+				
+			}			
+		}
+	},
+	
+	onDeviceBtnEditClick: function(me, e){
+		
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 3 - Alterar
+			activeTab = this.xUtils.activateTab(3, row.get('id'), 'deviceform', null, false);
+			
+			if(activeTab){
+				
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Seta Botão Confirma: Alterar
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('update', me, e)});
+			}
+		}
+	},
+	
+	onDeviceBtnAddClick: function(me, e){
+		
+		//Cria Aba: 2 - Incluir
+		var activeTab = this.xUtils.activateTab(2, null, 'deviceform', null, false);
+		
+		if(activeTab){
+	
+			//Seta Botão Confirma: Incluir
+			Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e){this.fireEvent('create', me, e)});
+		}
+
+	},
+	
+	onDeviceBtnDeleteClick: function(me, e){
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 4 - Excluir
+			activeTab = this.xUtils.activateTab(4, row.get('id'), 'deviceform', null, false);
+			
+			if(activeTab){
+			
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Campos a desabilitar
+				var fields = Ext.ComponentQuery.query('form field',activeTab)
+				
+				//Desabilita Campos
+				Ext.each(fields,function(f){f.setReadOnly(true)})
+				
+				//Seta Botão Confirma: Exlcuir
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('remove', me, e)});
+			}
+		}
+	},
+	
+	onDeviceBtnSubmitAdd: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('DeviceStore'),		//Store
+			record		= Ext.create('Sam.model.Device');	//Registro
+		
+		if(form.isValid()){
+			
+			//Carrega dados do Formulario no registro
+			record.set(values);
+			
+			//Adiciona registro na store
+			store.add(record);
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#devicegrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	onDeviceBtnSubmitEdit: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('DeviceStore'),		//Store
+			record		= form.getRecord();					//Registro
+		
+		if(form.isValid()){
+			//Carrega dados do formulario na Store
+			store.findRecord('id',record.get('id')).set(values);
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#devicegrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	onDeviceBtnSubmitDelete: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('DeviceStore'),		//Store
+			record		= form.getRecord();					//Registro
+		
+		if(form.isValid()){
+		
+			//Apaga registro da Store
+			store.remove(record);
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#devicegrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	/*********** End Device Controlling ***********/
+	
+	/*********** Begin Trecho Controlling ***********/
+	
+	onTrechoBtnShowClick: function(me, e) {
+		
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 1 - Visualizar
+			activeTab = this.xUtils.activateTab(1, row.get('id'), 'trechoform', null, false);
+			
+			if(activeTab){
+			
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Campos a desabilitar
+				var fields = Ext.ComponentQuery.query('form field',activeTab)
+				
+				//Desabilita Campos
+				Ext.each(fields,function(f){f.setReadOnly(true)})
+				
+				//Seta Botão Confirma: 1 - Visualizar
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('read')});
+				
+			}			
+		}
+	},
+	
+	onTrechoBtnEditClick: function(me, e){
+		
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 3 - Alterar
+			activeTab = this.xUtils.activateTab(3, row.get('id'), 'trechoform', null, false);
+			
+			if(activeTab){
+				
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Seta Botão Confirma: Alterar
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('update', me, e)});
+			}
+		}
+	},
+	
+	onTrechoBtnAddClick: function(me, e){
+		
+		//Cria Aba: 2 - Incluir
+		var activeTab = this.xUtils.activateTab(2, null, 'trechoform', null, false);
+		
+		if(activeTab){
+	
+			//Seta Botão Confirma: Incluir
+			Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e){this.fireEvent('create', me, e)});
+		}
+
+	},
+	
+	onTrechoBtnDeleteClick: function(me, e){
+		//Linha selecionada
+		var row = Ext.getCmp('viewportpanel').getActiveTab().getSelection()[0];
+		
+		//Tem Registro Selecionado
+		if(row){
+			
+			//Cria Aba: 4 - Excluir
+			activeTab = this.xUtils.activateTab(4, row.get('id'), 'trechoform', null, false);
+			
+			if(activeTab){
+			
+				//Retorna Form
+				var form = Ext.ComponentQuery.query('form',activeTab)[0].getForm();
+				
+				//Carrega registro no form
+				form.loadRecord(row);
+				
+				//Campos a desabilitar
+				var fields = Ext.ComponentQuery.query('form field',activeTab)
+				
+				//Desabilita Campos
+				Ext.each(fields,function(f){f.setReadOnly(true)})
+				
+				//Seta Botão Confirma: Exlcuir
+				Ext.ComponentQuery.query('#btnSubmit',activeTab)[0].setHandler(function(me, e) {this.fireEvent('remove', me, e)});
+			}
+		}
+	},
+	
+	onTrechoBtnSubmitAdd: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('TrechoStore'),		//Store
+			record		= Ext.create('Sam.model.Trecho');	//Registro
+		
+		if(form.isValid()){
+			
+			//Carrega dados do Formulario no registro
+			record.set(values);
+			
+			record.set({
+				origem			: Ext.create('Sam.model.Estacao'	,{id: values.origemID}),
+				destino			: Ext.create('Sam.model.Estacao'	,{id: values.destinoID}),
+				setor			: Ext.create('Sam.model.Setor'		,{id: values.setorID}),
+			});
+			
+			//Adiciona registro na store
+			store.add(record);
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#trechogrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	onTrechoBtnSubmitEdit: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('TrechoStore'),		//Store
+			record		= form.getRecord();					//Registro
+		
+		if(form.isValid()){
+			//Carrega dados do formulario na Store
+			store.findRecord('id',record.get('id')).set(values);
+			
+			store.findRecord('id',record.get('id')).set({
+				origem			: Ext.create('Sam.model.Estacao'	,{id: values.origemID}),
+				destino			: Ext.create('Sam.model.Estacao'	,{id: values.destinoID}),
+				setor			: Ext.create('Sam.model.Setor'		,{id: values.setorID}),
+			});
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#trechogrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	onTrechoBtnSubmitDelete: function(me, e){
+		
+		var form		= me.up('form')						//Formulario	
+			values		= form.getValues(),					//Dados do Formulario
+			store		= Ext.getStore('TrechoStore'),		//Store
+			record		= form.getRecord();					//Registro
+		
+		if(form.isValid()){
+		
+			//Apaga registro da Store
+			store.remove(record);
+			
+			//Sincroniza e Atualiza Store
+			this.xUtils.syncStore(store, '#trechogrid');
+			
+			//Fecha Aba
+			this.xUtils.closeActiveTab();
+		}
+	},
+	
+	/*********** End Trecho Controlling ***********/
 	
 });

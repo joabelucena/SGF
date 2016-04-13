@@ -80,9 +80,9 @@
 	org.hibernate               Log everything (a lot of information, but very useful for troubleshooting)
 	-->
 	
-<!-- 	<logger name="org.hibernate.type"> -->
-<!-- 		<level value="info" /> -->
-<!-- 	</logger> -->
+	<logger name="org.hibernate.type">
+		<level value="info" />
+	</logger>
 	
 
 	<!-- Root Logger -->

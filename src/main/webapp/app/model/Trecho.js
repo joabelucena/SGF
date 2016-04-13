@@ -14,7 +14,7 @@ Ext.define('Sam.model.Trecho', {
 	{
 		name : 'setorID',
 		type : 'number',
-		mapping : 'sistema.id'
+		mapping : 'setor.id'
 	},{
 		name : 'origemID',
 		type : 'string',

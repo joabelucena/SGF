@@ -28,13 +28,31 @@ Ext.define('Sam.model.Estacao', {
 		type : 'number'
 	},
 	
-	/** Association Keys * */
+	/** Association Keys **/
 	{
 		name : 'geozoneID',
 		type : 'string',
 		mapping : 'geozone.id'
-	}
-
+	},
+	
+	/** Estacao Aux Mappings **/
+	{
+		name : 'origemID',
+		type : 'string',
+		mapping : 'id'
+	}, {
+		name : 'origemDesc',
+		type : 'string',
+		mapping : 'nome'
+	},{
+		name : 'destinoID',
+		type : 'string',
+		mapping : 'id'
+	}, {
+		name : 'destinoDesc',
+		type : 'string',
+		mapping : 'nome'
+	},
 	],
 
 //	belongsTo : [ {

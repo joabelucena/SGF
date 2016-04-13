@@ -121,15 +121,15 @@ var equipmentInfo = {
 				        }
 				        
 					} ],
-					items:	[Ext.create('Sam.view.equipment.EquipmentsGrid',{dockedItems:[{
-								    xtype: 'toolbar',
-								    dock: 'bottom',
-								    
-								    items: [{
-								    	xtype: 'pagingtoolbar',
-								    	displayInfo: true,
-								    	border: false
-								    }]
+					items:[
+					       Ext.create('Sam.view.equipment.EquipmentsGrid',{dockedItems:[{
+					    	   xtype: 'toolbar',
+					    	   dock: 'bottom',
+					    	   items: [{
+					    		   xtype: 'pagingtoolbar',
+					    		   displayInfo: true,
+					    		   border: false
+					    	   }]
 					}]})],
 					
 				}).show()

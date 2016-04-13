@@ -3,6 +3,8 @@ Ext.define('Sam.store.PontoControleStore', {
 	
 	model: 'Sam.model.PontoControle',
 	
+	storeId: 'PontoControleStore',
+	
 	autoLoad: true,
 
 	sorters: { property: 'id'},

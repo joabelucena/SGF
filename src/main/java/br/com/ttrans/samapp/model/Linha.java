@@ -14,8 +14,11 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="x_linha")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Linha {
 	
 	@Id

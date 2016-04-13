@@ -5,6 +5,9 @@ Ext.define('Sam.lib.AutoStore', {
  
     constructor: function(config) {
         this.callParent(arguments);
+        
+//        Ext.apply(this, {storeId: this.$className});
+//        this.setStoreId(this.$className);
     },
     
     proxy: {

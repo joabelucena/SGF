@@ -9,6 +9,18 @@ Ext.define('Sam.model.Linha', {
 		name : 'desc',
 		type : 'string'
 	},
+	
+	/** ServiceOrder Aux Mappings * */
+	{
+		name : 'linhaID',
+		type : 'string',
+		mapping : 'id'
+	}, {
+		name : 'linhaDesc',
+		type : 'string',
+		mapping : 'desc'
+	},
+	
 
 	/** Association Keys * */
 	{

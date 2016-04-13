@@ -1,6 +1,23 @@
 Ext.define('Sam.model.Setor', {
 	extend: 'Ext.data.Model',
 	
-	fields:['id', 'desc'],
+	fields : [ {
+		name : 'id',
+		type : 'string'
+	}, {
+		name : 'desc',
+		type : 'string'
+	},
+
+	/** ServiceOrder Aux Mappings * */
+	{
+		name : 'setorID',
+		type : 'string',
+		mapping : 'id'
+	}, {
+		name : 'setorDesc',
+		type : 'string',
+		mapping : 'desc'
+	} ]
 	
 });

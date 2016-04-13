@@ -1,10 +1,10 @@
-Ext.define('Sam.view.alarm.type.TypeForm', {
+Ext.define('Sam.view.config.estacao.EstacaoForm', {
 	extend: 'Ext.Panel',
 	requires:['Sam.view.components.FormToolbar'],
 	
-	alias:  'widget.alarmtypeform',
+	alias:  'widget.estacaoform',
 	
-	itemId: 'alarmtypeform',
+	itemId: 'estacaoform',
 	
 	closable: true,
 	
@@ -35,35 +35,78 @@ Ext.define('Sam.view.alarm.type.TypeForm', {
 			fieldLabel : 'Código',
 			itemId: 'id',
 			name: 'id',
-			allowBlank : true,
-			editable: false,
-			width: '20%',
-			inputAttrTpl: " data-qtip='Código do Tipo' "
+			editable: false,	//ID field must always be editable: false. Check Utils.js
+			allowBlank: false,
+			width: 250,
+			inputAttrTpl: " data-qtip='Código da Estação' "
 		},{
-			fieldLabel : 'Descrição',
-			itemId: 'desc',
-			name: 'desc',
+			fieldLabel : 'Sigla',
+			itemId: 'sigla',
+			name: 'sigla',
 			allowBlank : false,
-			width: '60%',
-			inputAttrTpl: " data-qtip='Descrição do Tipo' "
+			width: 200,
+			inputAttrTpl: " data-qtip='Sigla da Estação' "
 		},{
-			fieldLabel : 'Classificação',
-			itemId: 'cla',
-			name: 'cla',
-			store: Ext.create('Ext.data.Store',{fields: ['id', 'desc'],
-			    data : [
-			        {"id":"C", "desc":"Comando"},
-			        {"id":"A", "desc":"Alarme"}
-			    ]
-			}),
-			queryMode: 'local',
-			valueField: 'id',
-	        displayField: 'desc',
-			xtype : 'combobox',
+			fieldLabel : 'Nome',
+			itemId: 'nome',
+			name: 'nome',
 			allowBlank : false,
-			editable: false,
-			width: '25%',
-			inputAttrTpl: " data-qtip='Define se o alarme será exibido na tela de Eventos.' "
+			width: 650,
+			inputAttrTpl: " data-qtip='Nome da Estação' "
+		},{
+			fieldLabel : 'Código SCAP',
+			itemId: 'scapID',
+			name: 'scapID',
+			allowBlank : false,
+			width: 250,
+			inputAttrTpl: " data-qtip='Código de referencia no SCAP (Sistema de Controle e Arrecadação de Passageiros)' "
+		},{
+			xtype: 'numberfield',
+			fieldLabel : 'Longitude',
+			itemId: 'longitude',
+			name: 'longitude',
+			allowBlank : false,
+			width: 650,
+			inputAttrTpl: " data-qtip='Coordenada de Longitude' "
+		},{
+			xtype: 'numberfield',
+			fieldLabel : 'Latitude',
+			itemId: 'latitude',
+			name: 'latitude',
+			allowBlank : false,
+			width: 650,
+			inputAttrTpl: " data-qtip='Coordenada de Latitude' "
+		},{
+			xtype: 'numberfield',
+			fieldLabel : 'Posição X',
+			itemId: 'posX',
+			name: 'posX',
+			allowBlank : false,
+			width: 100,
+			inputAttrTpl: " data-qtip='Coordenada de Posição em Pixels' "
+		},{
+			xtype: 'numberfield',
+			fieldLabel : 'Posição X',
+			itemId: 'posX',
+			name: 'posX',
+			allowBlank : false,
+			width: 300,
+			inputAttrTpl: " data-qtip='Coordenada de Posição em Pixels' "
+		},{
+			xtype: 'numberfield',
+			fieldLabel : 'Posição Y',
+			itemId: 'posY',
+			name: 'posY',
+			allowBlank : false,
+			width: 300,
+			inputAttrTpl: " data-qtip='Coordenada de Posição em Pixels' "
+		},{
+			fieldLabel : 'Geozone',
+			itemId: 'geozoneID',
+			name: 'geozoneID',
+			allowBlank : false,
+			width: 250,
+			inputAttrTpl: " data-qtip='Código da zona geografica em que a estação está localizada.' "
 		}],
 		
 		scrollable: true,

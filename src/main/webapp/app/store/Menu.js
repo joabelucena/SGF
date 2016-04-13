@@ -5,6 +5,8 @@ Ext.define('Sam.store.Menu', {
 	
 	model: 'Sam.model.MenuRoot',
 	
+	storeId: 'MenuStore',
+	
 	autoLoad: true,
 	autoSync: true,
 	

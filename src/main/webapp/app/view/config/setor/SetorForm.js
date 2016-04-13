@@ -1,10 +1,10 @@
-Ext.define('Sam.view.parameter.ParameterForm', {
+Ext.define('Sam.view.config.setor.SetorForm', {
 	extend: 'Ext.Panel',
 	requires:['Sam.view.components.FormToolbar'],
 	
-	alias:  'widget.parameterform',
+	alias:  'widget.setorform',
 	
-	itemId: 'parameterform',
+	itemId: 'setorform',
 	
 	closable: true,
 	
@@ -35,53 +35,17 @@ Ext.define('Sam.view.parameter.ParameterForm', {
 			fieldLabel : 'Código',
 			itemId: 'id',
 			name: 'id',
-			allowBlank : true,
-			editable: false,
+			editable: false,	//ID field must always be editable: false. Check Utils.js
+			allowBlank: false,
 			width: 200,
-			inputAttrTpl: " data-qtip='Código do Parâmetro' "
-		},{
-			fieldLabel : 'Nome',
-			itemId: 'name',
-			name: 'name',
-			allowBlank : false,
-			width: 300,
-			inputAttrTpl: " data-qtip='Nome do parâmetro. Os parâmetros de configuração do sistema deve ser iniciados por SYS_. Os " +
-					" parâmetros de processo devem ser iniciados por SAM_.' "
-		},{
-			fieldLabel : 'Tipo',
-			xtype: 'combobox',
-			itemId: 'type',
-			name: 'type',
-			store: Ext.create('Ext.data.Store',{fields: ['id', 'desc'],
-			    data : [
-			        {"id":"C", "desc":"Caracter"	},
-			        {"id":"D", "desc":"Data"		},
-			        {"id":"N", "desc":"Numérico"	},
-			        {"id":"S", "desc":"Senha"		},
-			    ]
-			}),
-			queryMode: 'local',
-			valueField: 'id',
-	        displayField: 'desc',
-			xtype : 'combobox',
-			allowBlank : false,
-			editable: false,
-			width: 200,
-			inputAttrTpl: " data-qtip='Tipo do Parâmetro. (C=Carater; D=Data; N=Numérico; S=Senha)' "
-		},{
-			fieldLabel : 'Valor',
-			itemId: 'value',
-			name: 'value',
-			allowBlank : false,
-			width: 500,
-			inputAttrTpl: " data-qtip='Valor do parâmetro.' "
+			inputAttrTpl: " data-qtip='Código do Sistema' "
 		},{
 			fieldLabel : 'Descrição',
 			itemId: 'desc',
 			name: 'desc',
 			allowBlank : false,
 			width: 650,
-			inputAttrTpl: " data-qtip='Breve descrição contendo a finalidade do parâmetro.' "
+			inputAttrTpl: " data-qtip='Descrição do Sistema' "
 		}],
 		
 		scrollable: true,

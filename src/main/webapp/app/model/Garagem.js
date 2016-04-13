@@ -30,6 +30,6 @@ Ext.define('Sam.model.Garagem', {
 		name : 'sistema',
 		model : 'Sam.model.Sistema',
 		foreignKey : 'sistemaID'
-	} ],
+	}],
 
 });

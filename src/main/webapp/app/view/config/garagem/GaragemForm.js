@@ -1,10 +1,10 @@
-Ext.define('Sam.view.alarm.type.TypeForm', {
+Ext.define('Sam.view.config.garagem.GaragemForm', {
 	extend: 'Ext.Panel',
 	requires:['Sam.view.components.FormToolbar'],
 	
-	alias:  'widget.alarmtypeform',
+	alias:  'widget.garagemform',
 	
-	itemId: 'alarmtypeform',
+	itemId: 'garagemform',
 	
 	closable: true,
 	
@@ -35,35 +35,76 @@ Ext.define('Sam.view.alarm.type.TypeForm', {
 			fieldLabel : 'Código',
 			itemId: 'id',
 			name: 'id',
-			allowBlank : true,
-			editable: false,
-			width: '20%',
-			inputAttrTpl: " data-qtip='Código do Tipo' "
+			editable: false,	//ID field must always be editable: false. Check Utils.js
+			allowBlank: false,
+			width: 200,
+			inputAttrTpl: " data-qtip='Código do Sistema' "
 		},{
 			fieldLabel : 'Descrição',
 			itemId: 'desc',
 			name: 'desc',
 			allowBlank : false,
-			width: '60%',
-			inputAttrTpl: " data-qtip='Descrição do Tipo' "
+			width: 650,
+			inputAttrTpl: " data-qtip='Descrição do Sistema' "
 		},{
-			fieldLabel : 'Classificação',
-			itemId: 'cla',
-			name: 'cla',
-			store: Ext.create('Ext.data.Store',{fields: ['id', 'desc'],
-			    data : [
-			        {"id":"C", "desc":"Comando"},
-			        {"id":"A", "desc":"Alarme"}
-			    ]
-			}),
-			queryMode: 'local',
-			valueField: 'id',
-	        displayField: 'desc',
-			xtype : 'combobox',
-			allowBlank : false,
-			editable: false,
-			width: '25%',
-			inputAttrTpl: " data-qtip='Define se o alarme será exibido na tela de Eventos.' "
+
+			xtype : 'groupfield',
+			defaultType : 'textfield',
+			title : 'Sistema',
+			itemId: 'sistemaInfo',
+			width: '60%',
+			
+			items:[{
+				xtype: 'textfield',
+				fieldLabel : 'Código',
+				itemId: 'sistemaID',
+				name: 'sistemaID',
+				editable: false,
+				width: '30%',
+				allowBlank : false,
+				inputAttrTpl: " data-qtip='Código do Sistema' ",
+				triggers: {f3: {handler: function() {
+					
+					Ext.create('Sam.view.components.PopUp',{
+						title: 'Selecionar Sistema',
+						buttons : [ {
+							text : 'Confirma',
+							itemId: 'submit',
+							cls:'x-btn-default-small',
+							iconCls: 'tick-button',
+							handler: function(button) {
+				        	
+					        	//Aba Objecto Pai
+				        		var activeTab = Ext.getCmp('viewportpanel').getActiveTab(),
+				        			window = button.up('window'),
+				        			record = button.up('window').down('grid').getSelection()[0],
+				        			form = Ext.ComponentQuery.query('form',activeTab)[0].getForm(),
+				        			groupField = Ext.ComponentQuery.query('#sistemaInfo',activeTab)[0];
+				        		
+					        	if(record){
+					        		
+					        		groupField.loadRecord(record);
+					        		
+					        		window.close();
+					        		
+					        	}
+							}
+				        
+						} ],
+					
+					items:	[Ext.create('Sam.view.config.sistema.SistemaGrid',{dockedItems:[]})],
+					
+				}).show()}}}
+			
+				}, {
+					fieldLabel : 'Descrição',
+					itemId: 'sistemaDesc',
+					name: 'sistemaDesc',
+					readOnly : true,
+					width: '50%',
+					inputAttrTpl: " data-qtip='Descrição do Sistema' ",
+				}]
+			
 		}],
 		
 		scrollable: true,

@@ -4,7 +4,7 @@ Ext.define('Sam.view.config.linha.LinhaGrid', {
 
 	requires : ['Ext.grid.filters.Filters'],
 	           
-	store : Ext.create('Sam.store.GaragemStore'),
+	store : Ext.create('Sam.store.LinhaStore'),
 	
 	itemId: 'linhagrid',
 
