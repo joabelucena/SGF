@@ -28,7 +28,7 @@ Ext.define('Sam.view.reports.spagobi.SpagoBi', {
 	    		method : 'POST',
 	    		
 	    		params: {
-	    			label: label	    			
+	    			label: label
 	    		},
 	
 	    		success: function (result, request) {

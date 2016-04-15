@@ -16,7 +16,7 @@
 	},
 	
 	views: [
-	        'MainViewport'
+	        'MainViewport', 'reports.jasper.JasperReports'
 	        ],
 
 	stores: ['Menu'],

@@ -35,7 +35,7 @@ public class Linha {
 	@OneToMany(fetch=FetchType.EAGER, orphanRemoval=true)
 	@JoinColumn(name="linhaID", referencedColumnName = "linhaID")
 	@Cascade({CascadeType.SAVE_UPDATE})
-	private Set<Itinerario> itinerarios;
+	private Set<Itinerario> itinerario;
 
 	public String getId() {
 		return id;
@@ -61,11 +61,11 @@ public class Linha {
 		this.sistema = sistema;
 	}
 
-	public Set<Itinerario> getItinerarios() {
-		return itinerarios;
+	public Set<Itinerario> getItinerario() {
+		return itinerario;
 	}
 
-	public void setItinerarios(Set<Itinerario> itinerarios) {
-		this.itinerarios = itinerarios;
+	public void setItinerario(Set<Itinerario> itinerario) {
+		this.itinerario = itinerario;
 	}
 }

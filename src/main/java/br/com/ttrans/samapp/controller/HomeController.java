@@ -37,11 +37,11 @@ import br.com.ttrans.samapp.service.SetorService;
 @Controller
 public class HomeController {
 
-	//Endpoint package for scanning
+	// Endpoint package for scanning
 	private static final String WSPACKAGE = "br.com.ttrans.samapp.ws.endpoint";
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	@Autowired
 	private SetorService service;
 
@@ -63,7 +63,7 @@ public class HomeController {
 	public String listServices(Locale locale, Model model, HttpServletRequest request) {
 
 		List<Class<?>> classes = ClassFinder.find(WSPACKAGE);
-		
+
 		List<String[]> list = new ArrayList<String[]>();
 
 		String path = request.getRequestURL().substring(0,
@@ -84,11 +84,11 @@ public class HomeController {
 				System.out.println("URL :" + ws.url());
 
 				System.out.println("---------");
-				
-				String[] info = { ws.name(), ws.description(),  path.concat(ws.url()) };		
-				
+
+				String[] info = { ws.name(), ws.description(), path.concat(ws.url()) };
+
 				list.add(info);
-				
+
 			}
 
 		}
@@ -131,11 +131,11 @@ public class HomeController {
 	@RequestMapping(value = "/getuser", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> getUser(HttpServletRequest request, Authentication aut) {
-		
+
 		User user = (User) request.getSession().getAttribute("loggedUser");
-		
+
 		return new ResponseEntity<String>(user.getUserID() + " | " + user.getRole().getDisplayName(), HttpStatus.OK);
-		
+
 	}
 
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -143,32 +143,28 @@ public class HomeController {
 	public Map<String, Object> testeSam(HttpServletRequest request, Authentication authentication) {
 
 		Map<String, Object> result = new HashMap<String, Object>();
-		
+
 		Setor s1 = new Setor("BRT/PALMAS");
 		Setor s2 = new Setor("VLT/SANTOS");
-		
+
 		System.out.println("Inserindo 1");
 		service.add(s1, authentication);
-		
 
 		System.out.println("Inserindo 2");
 		service.add(s2, authentication);
-		
+
 		logger.info("S1 ID: " + s1.getId());
 		logger.info("S2 ID: " + s2.getId());
-		
+
 		s1.setDesc("BRT-PALMAS");
-		
-		
 
 		System.out.println("Editando 1");
 		service.edit(s1, authentication);
-		
 
 		System.out.println("Deletando 2");
 		service.delete(s2, authentication);
-		
 
 		return result;
 	}
+
 }

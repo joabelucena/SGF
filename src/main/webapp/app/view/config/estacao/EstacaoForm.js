@@ -63,27 +63,23 @@ Ext.define('Sam.view.config.estacao.EstacaoForm', {
 		},{
 			xtype: 'numberfield',
 			fieldLabel : 'Longitude',
+			decimalPrecision: 8,
+			decimalSeparator : '.',
 			itemId: 'longitude',
 			name: 'longitude',
 			allowBlank : false,
-			width: 650,
+			width: 250,
 			inputAttrTpl: " data-qtip='Coordenada de Longitude' "
 		},{
 			xtype: 'numberfield',
 			fieldLabel : 'Latitude',
+			decimalPrecision: 8,
+			decimalSeparator : '.',
 			itemId: 'latitude',
 			name: 'latitude',
 			allowBlank : false,
-			width: 650,
+			width: 250,
 			inputAttrTpl: " data-qtip='Coordenada de Latitude' "
-		},{
-			xtype: 'numberfield',
-			fieldLabel : 'Posição X',
-			itemId: 'posX',
-			name: 'posX',
-			allowBlank : false,
-			width: 100,
-			inputAttrTpl: " data-qtip='Coordenada de Posição em Pixels' "
 		},{
 			xtype: 'numberfield',
 			fieldLabel : 'Posição X',
