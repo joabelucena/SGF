@@ -45,17 +45,30 @@ Ext.define('Sam.view.reports.jasper.JasperReports', {
 	    		jsonData: data,
 	
 	    		success: function (result, request) {
+	    			
+	    			var htmlText = '<embed width=100% height=100%'
+	                    + ' type="application/pdf"'
+	                    + ' alt="pdf"' 
+	                    + ' src="data:application/pdf;inline,'
+	                    + result.responseText
+	                    + '"></embed>';
+	    			
+	    			var srcPDF = 'data:application/pdf; inline,'+ escape(result.responseText);
+	    			console.log('passou aqui');
 	    			me.add({
 						xtype: 'container',
 						layout: 'fit',
+//						html: htmlText
+						
 						autoEl: {
-							tag: 'iframe',
-							html: result.responseText,
+							tag: 'embed',
+							src: srcPDF,
+							type: 'application/pdf',
 							style: 'border: 0px; height:100% ; width:100%'
 						}
 	    			});
 	    			
-	    			me.autoRender = result;
+	    			me.autoRender = true;
 	    		}	    			
 	    	});
 			

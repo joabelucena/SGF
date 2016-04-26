@@ -163,6 +163,32 @@ Ext.define('Sam.controller.Menu', {
 				}]
 			});
 		}else if(record.get('type') == "JASPER_REPORT"){
+			
+
+			//Abrir em Nova Aba do SAM
+			
+//			var newTab = mainPanel.add({
+//				xtype: 'panel',
+//				closable: true,
+//				iconCls: record.get('iconCls'),
+//				title: record.get('text'),
+//				items:[{
+//					xtype: 'container',
+//					layout: 'fit',
+//					autoEl: {
+//						tag: 'iframe',
+//						src: 'report',
+//						style: 'border: 0px; width: 100%; height: 100%;'
+//					}
+//				}]
+//			});
+		
+			
+			
+			
+			
+			
+			
 			//Relatório do Spago
 			
 			var newTab = mainPanel.add({
